@@ -1,0 +1,6 @@
+﻿
+D:\scalepup\kerlabiz\keralabiz\my-app\app\dashboard\admin\page.js
+  312:38  error  'Info' is not defined  react/jsx-no-undef
+
+Γ£û 1 problem (1 error, 0 warnings)
+
