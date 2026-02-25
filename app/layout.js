@@ -1,17 +1,17 @@
-import { Home, Store, UserPlus, LogIn, LayoutDashboard } from "lucide-react";
+'use client';
+import { useState } from 'react';
+import { Home, Store, UserPlus, LogIn, LayoutDashboard, Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from 'framer-motion';
 import './globals.css';
 
-export const metadata = {
-  title: 'KeraBiz - Kerala\'s Local Marketplace',
-  description: 'Find amazing local shops in Kerala. Order directly via WhatsApp.',
-};
-
 export default function RootLayout({ children }) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <html lang="ml">
       <body className="bg-[#fafafa] text-gray-900 font-sans antialiased min-h-screen flex flex-col pt-24">
         {/* Floating Glass Navbar */}
-        <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-6xl z-50 glass rounded-2xl shadow-sm border border-white/40 transition-all duration-300 hover:shadow-md">
+        <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-6xl z-50 glass rounded-2xl shadow-sm border border-white/40 transition-all duration-300 hover:shadow-md bg-white/80 backdrop-blur-xl">
           <div className="px-6 h-16 flex items-center justify-between">
             {/* Brand */}
             <a href="/" className="flex items-center gap-2 group">
@@ -39,12 +39,64 @@ export default function RootLayout({ children }) {
               Admin
             </a>
 
-            {/* Mobile Menu Button (Placeholder for simplicity, standard usage) */}
-            <button className="md:hidden text-green-950 p-2 rounded-lg hover:bg-green-50 transition-colors">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" /></svg>
+            {/* Mobile Menu Button  */}
+            <button
+              onClick={() => setMobileMenuOpen(true)}
+              className="md:hidden text-green-950 p-2 rounded-lg hover:bg-green-50 transition-colors focus:outline-none"
+            >
+              <Menu className="w-6 h-6" />
             </button>
           </div>
         </nav>
+
+        {/* Mobile Navigation Menu Overlay */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <>
+              {/* Overlay Background */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setMobileMenuOpen(false)}
+                className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[60] md:hidden"
+              />
+              {/* Menu Panel */}
+              <motion.div
+                initial={{ x: '100%' }}
+                animate={{ x: 0 }}
+                exit={{ x: '100%' }}
+                transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                className="fixed top-0 right-0 bottom-0 w-64 bg-white z-[70] shadow-2xl flex flex-col md:hidden"
+              >
+                <div className="p-6 flex justify-end border-b border-gray-100">
+                  <button
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="p-2 bg-gray-50 rounded-full text-gray-500 hover:bg-red-50 hover:text-red-500 transition-colors"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+                <div className="flex flex-col p-6 gap-6">
+                  <MobileNavLink href="/" icon={Home} label="Home" onClick={() => setMobileMenuOpen(false)} />
+                  <MobileNavLink href="/register" icon={UserPlus} label="Register Shop" onClick={() => setMobileMenuOpen(false)} />
+                  <MobileNavLink href="/dashboard/shop" icon={LogIn} label="Shop Login" onClick={() => setMobileMenuOpen(false)} />
+
+                  <div className="mt-8 pt-8 border-t border-gray-100">
+                    <a
+                      href="/admin"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center justify-center gap-2 w-full bg-green-950 hover:bg-green-900 text-gold-100 text-base font-bold px-4 py-3 rounded-xl transition-colors shadow-md"
+                    >
+                      <LayoutDashboard className="w-5 h-5" />
+                      Admin Dashboard
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
 
         {/* Main Content */}
         <main className="flex-1 w-full relative z-10">
@@ -67,6 +119,17 @@ export default function RootLayout({ children }) {
         </footer>
       </body>
     </html>
+  );
+}
+
+function MobileNavLink({ href, icon: Icon, label, onClick }) {
+  return (
+    <a href={href} onClick={onClick} className="flex items-center gap-4 text-gray-700 hover:text-green-600 font-semibold text-lg transition-colors p-2 rounded-xl hover:bg-green-50">
+      <div className="w-10 h-10 rounded-lg bg-gray-50 flex items-center justify-center">
+        <Icon className="w-5 h-5 opacity-70" />
+      </div>
+      {label}
+    </a>
   );
 }
 
