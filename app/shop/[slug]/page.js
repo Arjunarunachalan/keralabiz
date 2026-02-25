@@ -1,16 +1,33 @@
 import { notFound } from 'next/navigation';
+import { cache } from 'react';
 import ShopPageClient from './ShopPageClient';
+import connectDB from '@/lib/mongodb';
+import Shop from '@/models/Shop';
+import Product from '@/models/Product';
 
-async function getShopData(slug) {
+const getShopData = cache(async (slug) => {
     try {
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-        const res = await fetch(`${baseUrl}/api/shops/${slug}`, { cache: 'no-store' });
-        if (!res.ok) return null;
-        return res.json();
-    } catch {
+        await connectDB();
+
+        const shop = await Shop.findOne({ slug, status: 'ACTIVE' })
+            .select('-passwordHash')
+            .lean();
+
+        if (!shop) {
+            return null;
+        }
+
+        const products = await Product.find({ shopId: shop._id, available: true })
+            .select('name description price unit imageUrl')
+            .limit(15)
+            .lean();
+
+        return JSON.parse(JSON.stringify({ shop, products }));
+    } catch (error) {
+        console.error('Shop detail error:', error);
         return null;
     }
-}
+});
 
 export async function generateMetadata({ params }) {
     const { slug } = await params;
