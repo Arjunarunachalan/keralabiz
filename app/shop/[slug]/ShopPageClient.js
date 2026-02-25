@@ -301,15 +301,15 @@ export default function ShopPageClient({ shop, products }) {
                         <p className="text-center text-[11px] font-bold text-gray-400 mt-3 uppercase tracking-wider">Tap to open WhatsApp</p>
                     </div>
 
-                    <div className="bg-white rounded-2xl border border-gray-100 p-4 flex items-center justify-center gap-3 shadow-sm group hover:border-green-200 transition-colors">
-                        <div className="w-10 h-10 bg-green-50 rounded-full flex items-center justify-center text-green-600 group-hover:bg-green-500 group-hover:text-white transition-colors">
+                    <a href={`https://wa.me/91${waNumber}`} target="_blank" rel="noopener noreferrer" className="bg-white rounded-2xl border border-gray-100 p-4 flex items-center justify-center gap-3 shadow-sm group hover:border-green-200 transition-colors outline-none focus:ring-4 focus:ring-green-500/50 block w-full">
+                        <div className="w-10 h-10 bg-green-50 rounded-full flex items-center justify-center text-green-600 group-hover:bg-green-500 group-hover:text-white transition-colors shrink-0">
                             <MessageCircle className="w-5 h-5" />
                         </div>
                         <div>
                             <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">Direct Contact</p>
                             <p className="text-sm font-extrabold text-gray-900">+91 {shop.whatsapp}</p>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
 
