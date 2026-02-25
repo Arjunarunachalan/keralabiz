@@ -4,6 +4,11 @@ import { Home, Store, UserPlus, LogIn, LayoutDashboard, Menu, X } from "lucide-r
 import { motion, AnimatePresence } from 'framer-motion';
 import './globals.css';
 
+// We cannot export metadata from a 'use client' layout. 
+// Standard Next.js practice is to have a server-side layout or put it in a separate SEO component/page.
+// Since the layout is currently 'use client' due to the mobile nav, Next.js handles title automatically if we don't block it, 
+// but we'll leave it as is to keep the client interactive nav working flawlessly.
+
 export default function RootLayout({ children }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
