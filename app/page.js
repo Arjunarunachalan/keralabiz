@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, Search, Store, Star, ChevronRight, MessageCircle } from 'lucide-react';
+import { BRAND } from '@/lib/brand';
 
 const AREAS = [
   'Thiruvananthapuram', 'Kollam', 'Pathanamthitta', 'Alappuzha',
@@ -75,7 +76,7 @@ export default function HomePage() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
             </span>
-            Kerala's Premier Local Network
+            {BRAND.tagline_ml}
           </motion.div>
 
           <motion.h1
@@ -84,8 +85,8 @@ export default function HomePage() {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="text-5xl md:text-7xl font-extrabold tracking-tight text-green-950"
           >
-            Find Local <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-green-400 pb-2 inline-block">Shops</span><br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-600 to-gold-400">Order via WhatsApp</span>
+            {BRAND.name_ml} <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-600 to-gold-400 text-3xl md:text-4xl">{BRAND.name_en}</span>
           </motion.h1>
 
           <motion.p
@@ -94,7 +95,7 @@ export default function HomePage() {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="text-gray-600 text-lg md:text-xl max-w-2xl mx-auto font-medium"
           >
-            Discover the best stores near you. Connect directly, order instantly, support local commerce.
+            {BRAND.tagline_en}
           </motion.p>
 
           {/* Search/Area Selector */}
@@ -289,9 +290,12 @@ function ShopCard({ shop }) {
           )}
 
           <div className="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between group-hover:border-green-100 transition-colors">
-            <div className="flex items-center gap-2 text-green-600 font-bold text-sm">
-              <MessageCircle className="w-4 h-4 fill-current opacity-20 group-hover:opacity-100 transition-opacity" />
-              Order on WhatsApp
+            <div className="flex flex-col items-start gap-1 text-green-600 font-bold text-sm">
+              <span className="flex items-center gap-2">
+                <MessageCircle className="w-4 h-4 fill-current opacity-20 group-hover:opacity-100 transition-opacity" />
+                WhatsApp വഴി ഓർഡർ ചെയ്യൂ
+              </span>
+              <small className="text-[10px] text-gray-400 font-semibold pl-6">Order via WhatsApp</small>
             </div>
             <div className="w-8 h-8 rounded-full bg-gray-50 group-hover:bg-green-500 flex items-center justify-center transition-colors">
               <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" />

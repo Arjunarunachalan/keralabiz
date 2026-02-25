@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { Home, Store, UserPlus, LogIn, LayoutDashboard, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from 'framer-motion';
+import { BRAND } from '@/lib/brand';
 import './globals.css';
 
 // We cannot export metadata from a 'use client' layout. 
@@ -19,13 +20,18 @@ export default function RootLayout({ children }) {
         <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-6xl z-50 glass rounded-2xl shadow-sm border border-white/40 transition-all duration-300 hover:shadow-md bg-white/80 backdrop-blur-xl">
           <div className="px-6 h-16 flex items-center justify-between">
             {/* Brand */}
-            <a href="/" className="flex items-center gap-2 group">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-green-600 to-green-400 flex items-center justify-center shadow-lg shadow-green-500/20 group-hover:scale-105 transition-transform">
+            <a href="/" className="flex items-center gap-3 group">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-green-600 to-green-400 flex items-center justify-center shadow-lg shadow-green-500/20 group-hover:scale-105 transition-transform shrink-0">
                 <Store className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-extrabold tracking-tight text-green-950">
-                Kera<span className="text-gold-500">Biz</span>
-              </span>
+              <div className="flex flex-col">
+                <span className="text-xl font-extrabold tracking-tight text-green-950 leading-none">
+                  {BRAND.name_ml}
+                </span>
+                <span className="text-[10px] font-bold text-gray-500 tracking-widest uppercase mt-0.5">
+                  {BRAND.name_en}
+                </span>
+              </div>
             </a>
 
             {/* Desktop Links */}
@@ -115,10 +121,10 @@ export default function RootLayout({ children }) {
               <div className="w-6 h-6 rounded-md bg-green-600 flex items-center justify-center">
                 <Store className="w-3 h-3 text-white" />
               </div>
-              <span className="text-sm font-bold text-gray-900">KeraBiz</span>
+              <span className="text-sm font-bold text-gray-900">{BRAND.name_ml}</span>
             </div>
             <p className="text-sm text-gray-500 font-medium">
-              &copy; {new Date().getFullYear()} KeraBiz. All rights reserved.
+              &copy; {new Date().getFullYear()} {BRAND.name_en}. All rights reserved.
             </p>
           </div>
         </footer>

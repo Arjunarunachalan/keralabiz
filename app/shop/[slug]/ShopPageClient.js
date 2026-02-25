@@ -5,15 +5,22 @@ import { MapPin, Info, ShoppingBag, Plus, Minus, MessageCircle, ShoppingCart, Al
 import { Toaster, toast } from 'react-hot-toast';
 
 function generateWhatsAppMessage(shop, selectedItems, user) {
-    const subtotal = selectedItems.reduce((s, i) => s + (i.price * i.qty), 0);
+    const itemsText = selectedItems.map(i => `- ${i.name} x ${i.qty}`).join('\n');
 
-    const itemLines = selectedItems.length > 0
-        ? selectedItems.map(i => `  • ${i.name} x${i.qty} — ₹${i.price * i.qty}`).join('\n')
-        : '  (Items not selected – please specify in chat)';
+    return encodeURIComponent(`ചേട്ടാ / ചേച്ചി,
 
-    return encodeURIComponent(
-        `നമസ്കാരം! 🙏\n\n🛍️ *New Order for ${shop.name}*\n\n📋 *Order Summary:*\n${itemLines}\n\n====================\n💰 *Subtotal: ₹${subtotal}*\n_{Note: Final total may vary. Delivery & other charges may apply based on location and shop policies.}_\n====================\n\n👤 *Customer Details:*\n• Name: ${user.name}\n• Phone: ${user.phone}\n• Address: ${user.address || 'N/A'}\n• Preferred Time: ${user.date || 'As soon as possible'}\n\n_Please confirm the availability, final total including any extra charges, and delivery timing. Thank you!_`
-    );
+Shop: ${shop.name}
+
+Items:
+${itemsText}
+
+Delivery / Pickup:
+Preferred date: ${user.date || 'As soon as possible'}
+
+My name: ${user.name}
+My mobile number: ${user.phone}
+Delivery address: ${user.address || 'N/A'}
+Nearby landmark: `);
 }
 
 const staggerContainer = {
@@ -295,8 +302,11 @@ export default function ShopPageClient({ shop, products }) {
                             }}
                         >
                             <div className="absolute inset-0 -translate-x-full group-hover:animate-shimmer bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-                            <MessageCircle className="w-5 h-5" />
-                            <span>Order via WhatsApp</span>
+                            <MessageCircle className="w-5 h-5 shrink-0" />
+                            <div className="flex flex-col items-center">
+                                <span>WhatsApp വഴി ഓർഡർ ചെയ്യൂ</span>
+                                <small className="text-[10px] opacity-80 font-semibold tracking-wider">Order via WhatsApp</small>
+                            </div>
                         </button>
                         <p className="text-center text-[11px] font-bold text-gray-400 mt-3 uppercase tracking-wider">Tap to open WhatsApp</p>
                     </div>
@@ -318,7 +328,7 @@ export default function ShopPageClient({ shop, products }) {
             <AnimatePresence>
                 <div className="lg:hidden fixed bottom-0 left-0 right-0 p-4 bg-white/90 backdrop-blur-xl border-t border-gray-200 shadow-[0_-10px_40px_rgba(0,0,0,0.05)] z-50">
                     <button
-                        className="w-full flex items-center justify-center gap-2 bg-[#25d366] text-white font-extrabold py-4 rounded-xl text-base shadow-lg active:scale-[0.98] transition-transform"
+                        className="w-full flex items-center justify-center gap-2 bg-[#25d366] text-white font-extrabold py-3.5 rounded-xl text-base shadow-lg active:scale-[0.98] transition-transform"
                         onClick={() => {
                             if (selectedList.length === 0) {
                                 toast.error('Please select at least one item');
@@ -327,8 +337,11 @@ export default function ShopPageClient({ shop, products }) {
                             setOrderModalOpen(true);
                         }}
                     >
-                        <MessageCircle className="w-5 h-5" />
-                        WhatsApp Order {total > 0 && `(₹${total})`}
+                        <MessageCircle className="w-5 h-5 shrink-0" />
+                        <div className="flex flex-col items-center leading-none gap-0.5">
+                            <span className="text-sm">WhatsApp വഴി ഓർഡർ ചെയ്യൂ {total > 0 && `(₹${total})`}</span>
+                            <small className="text-[10px] font-semibold tracking-wide">Order via WhatsApp</small>
+                        </div>
                     </button>
                 </div>
             </AnimatePresence>

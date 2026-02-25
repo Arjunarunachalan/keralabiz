@@ -118,8 +118,8 @@ export default function AdminDashboard() {
                             <LayoutDashboard className="w-5 h-5" />
                         </div>
                         <div>
-                            <h1 className="text-xl font-black text-gray-900 tracking-tight">Admin Control</h1>
-                            <p className="text-gray-500 text-xs font-semibold">KeraBiz Platform Management</p>
+                            <h1 className="text-xl font-black text-gray-900 tracking-tight">Phone Peedika – Admin Panel</h1>
+                            <p className="text-gray-500 text-xs font-semibold">Platform Management</p>
                         </div>
                     </div>
                     <button onClick={logout}

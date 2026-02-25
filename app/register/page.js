@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Store, User, Phone, MapPin, Tag, FileText, Map, Truck, ShieldCheck, ArrowRight, CheckCircle2, Image as ImageIcon } from 'lucide-react';
+import { BRAND } from '@/lib/brand';
 
 const AREAS = [
     'Thiruvananthapuram', 'Kollam', 'Pathanamthitta', 'Alappuzha',
@@ -157,8 +158,12 @@ export default function RegisterPage() {
                     <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-green-600 to-green-500 text-white shadow-xl shadow-green-500/20 mb-6">
                         <Store className="w-8 h-8" />
                     </div>
-                    <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-4">Partner with <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-green-400">KeraBiz</span></h1>
-                    <p className="text-lg text-gray-600 font-medium max-w-2xl mx-auto">Join Kerala's fastest growing local marketplace. Reach thousands of customers directly on WhatsApp.</p>
+                    <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-4">
+                        {BRAND.name_ml}യിൽ നിങ്ങളുടെ കട രജിസ്റ്റർ ചെയ്യൂ
+                    </h1>
+                    <p className="text-lg text-gray-600 font-medium max-w-2xl mx-auto">
+                        Register your local shop on {BRAND.name_en}. Reach thousands of customers directly on WhatsApp.
+                    </p>
                 </motion.div>
 
                 <AnimatePresence>

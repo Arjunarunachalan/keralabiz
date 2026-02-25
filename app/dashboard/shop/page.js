@@ -764,9 +764,9 @@ export default function ShopDashboard() {
                                                 </div>
                                                 <div className="bg-white/60 rounded-xl p-4 border border-gray-100">
                                                     <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1 flex items-center gap-1.5"><Phone className="w-3 h-3" /> Registered Details</div>
-                                                    <div className="text-sm">
-                                                        <span className="font-semibold text-gray-900">Login:</span> +91 {shop.phone}<br />
-                                                        <span className="font-semibold text-gray-900">WhatsApp:</span> {shop.whatsapp}
+                                                    <div className="flex-1 overflow-x-auto scrollbar-hide">
+                                                        <span className="text-sm font-medium text-gray-500 mr-1">phonepeedika.com/shop/</span>
+                                                        <strong className="text-gray-900">{shop.slug}</strong>
                                                     </div>
                                                 </div>
                                             </div>
