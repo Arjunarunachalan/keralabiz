@@ -5,6 +5,8 @@ import connectDB from '@/lib/mongodb';
 import Shop from '@/models/Shop';
 import Product from '@/models/Product';
 
+export const dynamic = 'force-dynamic';
+
 const getShopData = cache(async (slug) => {
     try {
         await connectDB();
